@@ -14,6 +14,15 @@ const SleepWise = () => {
   const [currentScreen, setCurrentScreen] = useState("home");
   const [currentTime, setCurrentTime] = useState(new Date());
   const [bedtimeGoal] = useState("22:30");
+  
+  // Move routine items state to top level to fix hook ordering
+  const [routineItems, setRoutineItems] = useState([
+    { id: 1, text: "Turn off all screens", completed: false },
+    { id: 2, text: "Dim the lights", completed: false },
+    { id: 3, text: "Take deep breaths", completed: false },
+    { id: 4, text: "Write in gratitude journal", completed: false }
+  ]);
+  
   const { sleepEntries } = useSleepData();
   const { toast } = useToast();
 
@@ -54,6 +63,14 @@ const SleepWise = () => {
     if (sleepEntries.length === 0) return 0;
     const total = sleepEntries.reduce((sum, entry) => sum + entry.duration, 0);
     return (total / sleepEntries.length).toFixed(1);
+  };
+
+  const toggleRoutineItem = (id: number) => {
+    setRoutineItems(prev => 
+      prev.map(item => 
+        item.id === id ? { ...item, completed: !item.completed } : item
+      )
+    );
   };
 
   const renderHomeScreen = () => {
@@ -257,21 +274,6 @@ const SleepWise = () => {
   );
 
   const renderRoutineScreen = () => {
-    const [routineItems, setRoutineItems] = useState([
-      { id: 1, text: "Turn off all screens", completed: false },
-      { id: 2, text: "Dim the lights", completed: false },
-      { id: 3, text: "Take deep breaths", completed: false },
-      { id: 4, text: "Write in gratitude journal", completed: false }
-    ]);
-
-    const toggleRoutineItem = (id: number) => {
-      setRoutineItems(prev => 
-        prev.map(item => 
-          item.id === id ? { ...item, completed: !item.completed } : item
-        )
-      );
-    };
-
     const completedItems = routineItems.filter(item => item.completed).length;
     const progress = (completedItems / routineItems.length) * 100;
 
