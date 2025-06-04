@@ -41,7 +41,7 @@ const SleepQuotes = ({ isNearBedtime = false }: SleepQuotesProps) => {
   }, [quotes.length]);
 
   return (
-    <Card className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 backdrop-blur-md border-white/20">
+    <Card className="bg-gradient-to-r from-indigo-600/25 to-purple-600/25 backdrop-blur-md border-white/30">
       <CardContent className="p-6 text-center space-y-4">
         <div className="flex justify-center space-x-3">
           <Moon className="w-6 h-6 text-yellow-300 animate-pulse" />
@@ -49,7 +49,7 @@ const SleepQuotes = ({ isNearBedtime = false }: SleepQuotesProps) => {
           <Star className="w-4 h-4 text-yellow-100" />
         </div>
         
-        <p className="text-white text-lg leading-relaxed font-light italic">
+        <p className="text-white text-lg leading-relaxed font-medium italic drop-shadow-lg">
           "{quotes[currentQuote]}"
         </p>
         
@@ -60,7 +60,7 @@ const SleepQuotes = ({ isNearBedtime = false }: SleepQuotesProps) => {
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentQuote 
                   ? 'bg-yellow-300' 
-                  : 'bg-white/30'
+                  : 'bg-white/40'
               }`}
             />
           ))}
